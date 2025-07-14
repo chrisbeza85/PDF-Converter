@@ -1,0 +1,2 @@
+1. Requires GTK3 Runtime libraries for html to pdf conversion
+2. Requires poppler for pdf to pptx conversion
