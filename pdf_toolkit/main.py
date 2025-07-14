@@ -103,10 +103,12 @@ class PDFToolkitApp:
         html_pdf.convert_html_to_pdf()
 
     def pdf_to_word(self):
-        messagebox.showinfo("Convert", "PDF to Word clicked!")
+        from convert_tools import pdf_to_word
+        pdf_to_word.convert_pdf_to_word()
 
     def pdf_to_ppt(self):
-        messagebox.showinfo("Convert", "PDF to PowerPoint clicked!")
+        from convert_tools import pdf_to_ppt
+        pdf_to_ppt.convert_pdf_to_ppt()
 
     def pdf_to_excel(self):
         messagebox.showinfo("Convert", "PDF to Excel clicked!")
