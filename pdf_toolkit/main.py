@@ -34,8 +34,10 @@ class PDFToolkitApp:
         buttons =[
             ("Merge PDFs", self.merge_pdfs),
             ("Split PDF", self.split_pdf),
+            ("Remove Pages", self.remove_pages),
             ("Encrypt PDF", self.encrypt_pdf),
-            ("Decrypt PDF", self.decrypt_pdf)
+            ("Decrypt PDF", self.decrypt_pdf),
+            ("Add Watermark", self.add_watermark),
         ]
 
         for text, command in buttons:
@@ -76,11 +78,17 @@ class PDFToolkitApp:
     def split_pdf(self):
         messagebox.showinfo("Split", "Split PDF clicked!")
 
+    def remove_pages(self):
+        messagebox.showinfo("Remove Pages", "Remove Pages clicked!")
+
     def encrypt_pdf(self):
         messagebox.showinfo("Encrypt", "Encrypt PDF clicked!")
 
     def decrypt_pdf(self):
         messagebox.showinfo("Decrypt", "Decrypt PDF clicked!")
+
+    def add_watermark(self):
+        messagebox.showinfo("Watermark", "Add Watermark clicked!")
 
     def word_to_pdf(self):
         from convert_tools import word_pdf
@@ -111,10 +119,12 @@ class PDFToolkitApp:
         pdf_to_ppt.convert_pdf_to_ppt()
 
     def pdf_to_excel(self):
-        messagebox.showinfo("Convert", "PDF to Excel clicked!")
+        from convert_tools import pdf_to_excel
+        pdf_to_excel.convert_pdf_to_excel(self)
 
     def pdf_to_images(self):
-        messagebox.showinfo("Convert", "PDF to Images clicked!")
+        from convert_tools import pdf_to_image
+        pdf_to_image.pdf_to_images()
 
     def pdf_to_html(self):
         messagebox.showinfo("Convert", "PDF to HTML clicked!")
