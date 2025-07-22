@@ -1,13 +1,28 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog, messagebox
+import os
+import sys
 
 class PDFToolkitApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("PDF Toolkit - by Chris Beza")
+        self.root.title("PDF Converter Toolkit - by Chris Beza")
         self.root.geometry("700x500")
-        self.root.resizable(False, False)
+        self.root.resizable(True, True)
+
+        def get_asset_path(relative_path):
+            """Get absolute path to resource, works for dev and for PyInstaller"""
+            if hasattr(sys, '_MEIPASS'):
+                return os.path.join(sys._MEIPASS, relative_path)
+            return os.path.join(os.path.abspath("."), relative_path)
+
+        # icon
+        icon_path = get_asset_path("assets/app_icon.ico")
+        try:
+            root.iconbitmap(icon_path)
+        except Exception as e:
+            print("Failed to load icon:", e)
 
         self.create_tabs()
 
@@ -35,8 +50,6 @@ class PDFToolkitApp:
             ("Merge PDFs", self.merge_pdfs),
             ("Split PDF", self.split_pdf),
             ("Remove Pages", self.remove_pages),
-            ("Encrypt PDF", self.encrypt_pdf),
-            ("Decrypt PDF", self.decrypt_pdf),
             ("Add Watermark", self.add_watermark),
         ]
 
@@ -64,8 +77,7 @@ class PDFToolkitApp:
             ("PDF to Word", self.pdf_to_word),
             ("PDF to PowerPoint", self.pdf_to_ppt),
             ("PDF to Excel", self.pdf_to_excel),
-            ("PDF to Images", self.pdf_to_images),
-            ("PDF to HTML", self.pdf_to_html)
+            ("PDF to Images", self.pdf_to_images)
         ]
 
         for text, command in buttons:
@@ -73,22 +85,20 @@ class PDFToolkitApp:
 
      # Placeholder functions for buttons
     def merge_pdfs(self):
-        messagebox.showinfo("Merge", "Merge PDFs clicked!")
+        from pdf_tools.merge_pdfs import PDFMergerApp
+        PDFMergerApp(self.root)
 
     def split_pdf(self):
-        messagebox.showinfo("Split", "Split PDF clicked!")
+        from pdf_tools.split_pdf import SplitPDFApp
+        SplitPDFApp(self.root)
 
     def remove_pages(self):
-        messagebox.showinfo("Remove Pages", "Remove Pages clicked!")
-
-    def encrypt_pdf(self):
-        messagebox.showinfo("Encrypt", "Encrypt PDF clicked!")
-
-    def decrypt_pdf(self):
-        messagebox.showinfo("Decrypt", "Decrypt PDF clicked!")
+        from pdf_tools.remove_pages import RemovePDFApp
+        RemovePDFApp(self.root)
 
     def add_watermark(self):
-        messagebox.showinfo("Watermark", "Add Watermark clicked!")
+        from pdf_tools.add_watermark import AddWatermarkApp
+        AddWatermarkApp(self.root)
 
     def word_to_pdf(self):
         from convert_tools import word_pdf
@@ -126,10 +136,8 @@ class PDFToolkitApp:
         from convert_tools import pdf_to_image
         pdf_to_image.pdf_to_images()
 
-    def pdf_to_html(self):
-        messagebox.showinfo("Convert", "PDF to HTML clicked!")
-
 if __name__ == "__main__":
     root = tk.Tk()
     app = PDFToolkitApp(root)
     root.mainloop()
+    

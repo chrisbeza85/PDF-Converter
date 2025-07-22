@@ -10,3 +10,7 @@ venv/
 *.DS_Store
 *.idea/
 *.vscode/
+main.spec
+dist/
+build/
+*.exe
